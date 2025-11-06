@@ -36,6 +36,15 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
+    - name: Build with Gradle (H2 mode)
+        env:
+          SPRING_DATASOURCE_URL: jdbc:h2:mem:testdb;MODE=MySQL
+          SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.h2.Driver
+          SPRING_DATASOURCE_USERNAME: sa
+          SPRING_DATASOURCE_PASSWORD: ""
+          SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+      run: ./gradlew build
+
     - name: Build with Gradle Wrapper
       run: ./gradlew build
 
