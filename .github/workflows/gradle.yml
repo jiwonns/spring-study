@@ -1,4 +1,4 @@
-name: Java CI with Gradle
+name: CI/CD Deployment
 
 on:
   push:
@@ -7,11 +7,8 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-
     steps:
     - uses: actions/checkout@v4
     
@@ -21,19 +18,15 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@v4.0.0
+    - name: Create application.properties
+      run: |
+        mkdir -p src/main/resources
+        echo "${{ secrets.APPLICATION_PROPERTIES }}" > src/main/resources/application.properties
       
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Build with Gradle (H2 mode)
-      env:
-        SPRING_DATASOURCE_URL: jdbc:h2:mem:testdb;MODE=MySQL
-        SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.h2.Driver
-        SPRING_DATASOURCE_USERNAME: sa
-        SPRING_DATASOURCE_PASSWORD: ""
-        SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+    - name: Build with Gradle
       run: ./gradlew clean build
 
     - name: docker image build
@@ -47,6 +40,26 @@ jobs:
 
     - name: docker Hub push
       run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/jiwon-spring:latest
+
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ubuntu
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          cd /home/ubuntu/my-project
+
+          cat > .env << EOF
+          MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}
+          SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+          SPRING_JWT_SECRET=${{ secrets.SPRING_JWT_SECRET }}
+          SPRING_JWT_EXPIRATION_TIME=86400000
+          DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
+          EOF
+          
+          docker-compose pull
+          docker-compose up -d --build
 
   dependency-submission:
 
