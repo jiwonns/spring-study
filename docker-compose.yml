@@ -5,6 +5,8 @@ services:
   db:
     image: mysql:8.0
     container_name: mysql-server
+    ports:
+      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: jiwondb
