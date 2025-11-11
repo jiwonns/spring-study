@@ -1,7 +1,8 @@
 package kr.co.project.global.exception;
 
-import com.bogumi.backend.global.enums.statuscode.ErrorStatus;
-import com.bogumi.backend.global.response.ApiResponse;
+
+import kr.co.project.global.enums.statuscode.ErrorStatus;
+import kr.co.project.global.response.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
 package kr.co.project.global.exception;
 
-import com.bogumi.backend.global.enums.statuscode.BaseCode;
+import kr.co.project.global.enums.statuscode.BaseCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 

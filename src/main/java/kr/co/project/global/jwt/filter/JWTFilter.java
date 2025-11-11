@@ -1,11 +1,12 @@
 package kr.co.project.global.jwt.filter;
 
-import com.bogumi.backend.global.jwt.service.CustomUserDetailsService;
-import com.bogumi.backend.global.jwt.util.JwtUtil;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import kr.co.project.global.jwt.service.CustomUserDetailsService;
+import kr.co.project.global.jwt.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

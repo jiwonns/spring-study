@@ -1,10 +1,10 @@
 package kr.co.project.global.jwt.util;
 
 
-import com.bogumi.backend.domain.user.entity.User;
-import com.bogumi.backend.global.jwt.dto.Authority;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import kr.co.project.domain.user.entity.User;
+import kr.co.project.global.jwt.dto.Authority;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

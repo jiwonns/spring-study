@@ -1,6 +1,6 @@
 package kr.co.project.global.jwt.dto;
 
-import com.bogumi.backend.domain.user.entity.User;
+import kr.co.project.domain.user.entity.User;
 import lombok.Data;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;

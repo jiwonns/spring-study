@@ -1,8 +1,8 @@
 package kr.co.project.global.response;
 
-import com.bogumi.backend.global.enums.statuscode.BaseCode;
-import com.bogumi.backend.global.enums.statuscode.SuccessStatus;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import kr.co.project.global.enums.statuscode.BaseCode;
+import kr.co.project.global.enums.statuscode.SuccessStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
